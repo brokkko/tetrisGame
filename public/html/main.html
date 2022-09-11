@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script src="../js/storage.js"></script>
+    <form class="return" action="../../index.html" method="GET">
+        <button>Back home</button>
+        <p id="greetings"></p>
+        <script>
+            document.getElementById("greetings").innerHTML = getUser();
+        </script>
+    </form>
+<!--    <canvas height='320' width='480' id='canvas'>Обновите браузер</canvas>-->
+</body>
+</html>
