@@ -3,16 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../css/gamePageStyle.css">
 </head>
 <body>
     <script src="../js/storage.js"></script>
-    <form class="return" action="../../index.html" method="GET">
-        <button>Back home</button>
-        <p id="greetings"></p>
+    <script type="module" src="../js/controller.js"></script>
+
+    <div class="wrapper-control">
+        <form class="return" action="../../index.html" method="GET">
+            <button>Back home</button>
+            <p id="greetings"></p>
+            <script>
+                document.getElementById("greetings").innerHTML = getUser();
+            </script>
+
+        </form>
+    </div>
+
+    <div class="wrapper-map">
+        <canvas id='canvas'></canvas>
+    </div>
+
+    <div class="wrapper-next-figure">
+        <canvas id='next-canvas'></canvas>
+    </div>
+    <div class="wrapper-score">
+        <p>Score: </p>
+        <p id="score"></p>
         <script>
-            document.getElementById("greetings").innerHTML = getUser();
+            document.getElementById("greetings").innerHTML = "0";
         </script>
-    </form>
-<!--    <canvas height='320' width='480' id='canvas'>Обновите браузер</canvas>-->
+    </div>
 </body>
 </html>

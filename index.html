@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Tetris</title>
+    <link rel="stylesheet" href="./public/css/registrationStyle.css">
 </head>
 <body>
+    <div class="wrapper">
+        <header>Who are you??</header>
+        <form action="./public/html/main.html" method="GET">
+            <div class="field username">
+                <div class="input-area">
+                    <input type="text" name="username" placeholder="Your name">
+                </div>
+                <div class="error error-txt">Name can't be blank</div>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
     <script src="./public/js/storage.js"></script>
-    <form class="loginForm" action="./public/html/main.html" method="GET">
-        <h1>Sign in</h1>
-        <label>
-            <input type="text" name="username" placeholder="Username">
-        </label>
-        <button onclick="{
-            console.log(this.form.username.value)
-            storeUser(this.form.username.value)
-        }">Login</button>
-    </form>
+    <script src="./public/js/loginFormValidation.js"></script>
+
 </body>
 </html>
