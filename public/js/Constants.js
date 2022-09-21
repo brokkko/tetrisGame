@@ -13,3 +13,21 @@ export const NextBoardConstants = Object.freeze({
 })
 
 export const DirConstants = { RIGHT: 0, DOWN: 1, LEFT: 2};
+
+// Level - Score
+export const LevelConstants = {
+    1: 0,
+    2: 20,
+    3: 50,
+    4: 90,
+    5: 140,
+    6: 240
+};
+
+// Number of rows - Score
+export const ScoreConstants = {
+    1: 10,
+    2: 30,
+    3: 70,
+    4: 150
+}

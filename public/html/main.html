@@ -6,17 +6,28 @@
     <link rel="stylesheet" href="../css/gamePageStyle.css">
 </head>
 <body>
-    <script src="../js/storage.js"></script>
-    <script type="module" src="../js/controller.js"></script>
-
+    <script src="../js/Storage.js"></script>
+    <script type="module" src="../js/controller.js" defer></script>
     <div class="wrapper-control">
-        <form class="return" action="../../index.html" method="GET">
-            <button>Back home</button>
-            <p id="greetings"></p>
-            <script>
-                document.getElementById("greetings").innerHTML = getUser();
-            </script>
-
+        <div class="game-info">
+            <div id="game-info-player">
+                <p>Player: </p>
+                <p id="player-name"></p>
+            </div>
+            <div id="game-info-level">
+                <p>Level: </p>
+                <p id="player-level"></p>
+            </div>
+            <div id="game-info-score">
+                <p>Score: </p>
+                <p id="player-score"></p>
+            </div>
+        </div>
+        <button class="control-button" id="start-game">Начать игру</button>
+        <button class="control-button" id="restart-game">Пробовать снова</button>
+        <button class="control-button" id="show-score-table">Таблица рекордов</button>
+        <form action="../../index.html" method="GET">
+            <button class="control-button">Вернуться в меню</button>
         </form>
     </div>
 
@@ -24,15 +35,27 @@
         <canvas id='canvas'></canvas>
     </div>
 
-    <div class="wrapper-next-figure">
-        <canvas id='next-canvas'></canvas>
+    <div class="wrapper-next-figure-info">
+        <div class="next-figure-canvas">
+            <canvas id='next-canvas'></canvas>
+        </div>
+        <div class="next-figure-title">
+            <p>Следующая фигура </p>
+        </div>
     </div>
-    <div class="wrapper-score">
-        <p>Score: </p>
-        <p id="score"></p>
-        <script>
-            document.getElementById("greetings").innerHTML = "0";
-        </script>
+
+    <div class="wrapper-score-table">
+        <div id="table"></div>
+        <button id="close">Закрыть</button>
     </div>
+
+    <script>
+        document.getElementById("player-name").innerHTML = getLastUser();
+        document.getElementById("player-level").innerHTML = "0";
+        document.getElementById("player-score").innerHTML = getCurrentUserScore(); //TODO here should be 0
+        console.log(getUser());
+    </script>
+    <script src="../js/ScoreTable.js"></script>
+
 </body>
 </html>

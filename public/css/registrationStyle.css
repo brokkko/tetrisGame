@@ -94,3 +94,7 @@ form button[type="submit"]{
     border-bottom: 2px solid rgba(0,0,0,0.1);
     transition: all 0.3s ease;
 }
+form button[type="submit"]:hover{
+    background: #9574be;
+}
+

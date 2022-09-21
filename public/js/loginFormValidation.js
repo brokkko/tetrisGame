@@ -4,9 +4,10 @@ usernameField = form.querySelector(".username"), nameInput = usernameField.query
 form.onsubmit = (e)=>{
     e.preventDefault();
     if(nameInput.value === "") {
+        document.getElementById("error").innerHTML = "Name can't be blank";
         usernameField.classList.add("shake", "error");
     } else {
-        storeUser(nameInput.value);
+        storeUser(nameInput.value, 0);
         window.location.href = form.getAttribute("action");
     }
 

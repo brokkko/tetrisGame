@@ -1,67 +1,126 @@
 *{
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
+
+    --board-height: 90vh;
+    --board-width: 50vh;
+    --control-board-width: 30vh;
+    --next-figure-board-width: 25vh;
+    --next-figure-board-height: 22vh;
+    --next-figure-p-width: 25vh;
+    --next-figure-p-height: 7vh;
+
+    --margin-between-elements: 0.7rem;
+
+
+    --text-font-size: 1.2em;
+    --text-font-weight: 600;
 }
 body{
-    /*margin: 0;*/
-    /*padding: 0;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
     background: #bbbbf5;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 4rem;
+    margin-top: 1.5rem;
 }
+
+/* ---------- control wrapper ---------- */
+.wrapper-control{
+    width: var(--control-board-width);
+    height: var(--board-height);
+    padding: 0.5% 0.5% 0.1% 0.5%;
+    text-align: center;
+}
+.game-info{
+    background: #ffffff;
+    width: var(--control-board-width) - 1%;
+    height: calc(var(--next-figure-board-height) + var(--next-figure-p-height) + 10vh);
+    margin-bottom: calc(var(--margin-between-elements) * 1.5);
+
+    border-radius: 5px;
+    box-shadow: 10px 10px 15px rgb(0 0 0 / 10%);
+    display: flex;
+    flex-direction: column;
+}
+.game-info p{
+    margin-left: 0.4rem;
+}
+
+#game-info-player,
+#game-info-level,
+#game-info-score {
+    display: flex;
+    font-size: var(--text-font-size);
+    font-weight: var(--text-font-weight);
+}
+
+.control-button{
+    margin-top: var(--margin-between-elements);
+    width: 100%;
+}
+
+.control-button:hover{
+    background-color: #d297d2;
+}
+
+/* ---------- game wrapper ---------- */
 .wrapper-map{
-    width: 50vh;
-    height: 90vh;
+    width: var(--board-width);
+    height: var(--board-height);
     border-radius: 5px;
     background: #ffffff;
     text-align: center;
     box-shadow: 10px 10px 15px rgba(0,0,0,0.1);
     display: flex;
     padding: 0.5% 0.5% 0.5% 0.5%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
 }
 canvas[id="canvas"]{
     width: 100%;
     height: 100%;
 }
 
-.wrapper-next-figure{
-    width: 25vh;
-    height: 22vh;
-    border-radius: 5px;
-    background: #ffffff;
-    text-align: center;
-    box-shadow: 10px 10px 15px rgb(0 0 0 / 10%);
+/* ---------- next figure info wrapper ---------- */
+.wrapper-next-figure-info{
+    width: var(--control-board-width);
+    height: var(--board-height);
     display: flex;
-    padding: 0.5% 0.5% 0.5% 0.5%;
-    position: absolute;
-    left: 75%;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 0.7rem;
 }
+
+.next-figure-canvas{
+    background-color: #ffffff;
+    width: var(--next-figure-board-width);
+    height: var(--next-figure-board-height);
+    box-shadow: 10px 10px 15px rgb(0 0 0 / 10%);
+    padding: 0.5% 0.5% 0.5% 0.5%;
+    border-radius: 5px;
+}
+
 canvas[id="next-canvas"]{
     width: 100%;
     height: 100%;
 }
 
-.wrapper-score{
+.next-figure-title{
     width: 25vh;
-    height: 7vh;
+    height: 9vh;
     border-radius: 5px;
     background: #ffffff;
     text-align: center;
     box-shadow: 10px 10px 15px rgb(0 0 0 / 10%);
     display: flex;
     padding: 0.5% 0.5% 0.5% 0.5%;
-    position: absolute;
-    left: 75%;
-    transform: translate(0%, -150%);
+
 }
-.wrapper-score p{
+.next-figure-title p{
     color: #000000;
-    font-weight: 700;
-    font-size: 1.5em;
+    font-weight: var(--text-font-weight);
+    font-size: var(--text-font-size);
     display: flex;
     flex-direction: column-reverse;
     justify-content: space-around;
@@ -70,11 +129,40 @@ canvas[id="next-canvas"]{
     padding: 0.5% 0.5% 0.5% 0.5%;
 }
 
-.wrapper-control{
-    width: 100px;
-    padding: 10px 10px 10px 10px;
-    background: #ffffff;
-    border-radius: 5px;
-    text-align: center;
-    box-shadow: 10px 10px 15px rgba(0,0,0,0.1);
+/* ---------- score table wrapper ---------- */
+.wrapper-score-table{
+    background-color: rgba(124, 124, 124, 0.9);
+    position: absolute;
+    width: 45vw;
+    height: 90vh;
+    display: none;
+}
+
+#table {
+    width: 100%;
+    margin-bottom: 20px;
+    /* border: 15px solid #F2F8F8; */
+    /* border-top: 5px solid #F2F8F8; */
+    border-collapse: collapse;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    transform: translateY(50%);
+    font-size: 1.3em;
+    font-weight: 700;
+}
+#table th {
+    font-weight: bold;
+    padding: 5px;
+    background: #F2F8F8;
+    border: none;
+    border-bottom: 5px solid #F2F8F8;
+}
+#table td {
+    padding: 5px;
+    border: none;
+    border-bottom: 5px solid #F2F8F8;
+}
+#close{
+    display: flex;
 }

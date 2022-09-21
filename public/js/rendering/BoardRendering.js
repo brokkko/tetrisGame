@@ -5,7 +5,6 @@ export default class BoardRendering {
     constructor(boardCanvasElement, nextCanvasElement) {
         this.boardCtx = boardCanvasElement.getContext("2d");
         this.nextBoardCtx = nextCanvasElement.getContext("2d");
-        // save element color
         this.board = this.#getEmptyBoard(BoardConstants.HEIGHT, BoardConstants.WIDTH);
         this.nextBoard = this.#getEmptyBoard(NextBoardConstants.HEIGHT, NextBoardConstants.WIDTH);
     }
@@ -13,7 +12,6 @@ export default class BoardRendering {
     #getEmptyBoard(height, width) {
         return Array(height).fill("").map(() => Array(width).fill(""));
     }
-
 
     rendering() {
         this.boardCtx.canvas.width = BoardConstants.WIDTH * BoardConstants.BLOCK_SIZE;
@@ -96,7 +94,7 @@ export default class BoardRendering {
                 row--;
             }
         }
-        return count * count * BoardConstants.WIDTH;
+        return count;
     }
 
     addFigureToBoard(figure, board = this.board) {

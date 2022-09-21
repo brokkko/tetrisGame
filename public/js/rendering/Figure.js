@@ -14,7 +14,6 @@ export default class Figure {
 
     rotate = () => {
         this.matrix = this.matrix[0].map((val, index) => this.matrix.map(row => row[index]).reverse());
-
     }
 
     move = () => {
