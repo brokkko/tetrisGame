@@ -6,7 +6,7 @@ export let FigureType = {
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ],
-        color: 'green'
+        color: '#7DBB34'
     },
     J: {
         blocks: [
@@ -14,7 +14,7 @@ export let FigureType = {
             [0, 0, 1],
             [0, 1, 1]
         ],
-        color: 'blue'
+        color: '#6A86C8'
     },
     L: {
         blocks: [
@@ -22,14 +22,14 @@ export let FigureType = {
             [1, 0, 0],
             [1, 1, 0]
         ],
-        color: 'orange'
+        color: '#FF9A47'
     },
     O: {
         blocks: [
             [1, 1],
             [1, 1]
         ],
-        color: 'purple'
+        color: '#B169BF'
     },
     S: {
         blocks: [
@@ -37,7 +37,7 @@ export let FigureType = {
             [1, 1, 0],
             [0, 0, 0]
         ],
-        color: 'red'
+        color: '#FD5D5D'
     },
     T: {
         blocks: [
@@ -45,7 +45,7 @@ export let FigureType = {
             [0, 1, 0],
             [0, 0, 0]
         ],
-        color: 'cyan'
+        color: '#45CAE0'
     },
     Z: {
         blocks: [
@@ -53,7 +53,7 @@ export let FigureType = {
             [0, 1, 1],
             [0, 0, 0]
         ],
-        color: 'yellow'
+        color: '#F9D84E'
     }
 };
 

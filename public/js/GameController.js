@@ -1,44 +1,56 @@
-import BoardRendering from "./rendering/BoardRendering.js";
-import Figure from "./rendering/Figure.js";
-import {FigureType} from "./rendering/FigureType.js";
-import {DirConstants, LevelConstants, ScoreConstants} from "./Constants.js";
+import Board from "./components/Board.js";
+import Figure from "./components/Figure.js";
+import {FigureType} from "./constants/FigureType.js";
+import {DirConstants, LevelConstants, ScoreConstants} from "./constants/Constants.js";
+import SoundsService from "./services/SoundsService.js";
 
-// TODO add levels
-class Controller {
+class GameController {
     constructor() {
         this.initGame();
-        document.getElementById("start-game").addEventListener('click', this.run);
-        document.getElementById("restart-game").addEventListener('click', this.restart);
+        document.getElementById("start-game").addEventListener('click', this.startOnClick);
+        document.getElementById("restart-game").addEventListener('click', this.restartOnClick);
     }
 
     initGame = () => {
-        this.board = new BoardRendering(
+        this.board = new Board(
             document.getElementById("canvas"),
             document.getElementById("next-canvas")
         );
         this.figureTypeKeys = [];
-        this.currentFigure = null;
-        this.nextFigure = null;
         this.score = 0;
         this.level = 0;
         this.speed = 400;
         this.flag = 0;
         this.gameStatus = false;
         this.board.rendering();
+        this.looseInfo = document.getElementsByClassName("loose-wrapper").item(0);
+    }
+
+    startOnClick = () => {
+        this.sounds = new SoundsService();
+        this.sounds.playClick();
+        this.run();
+    }
+
+    restartOnClick = () => {
+        this.sounds = new SoundsService();
+        this.sounds.playClick();
+        this.initGame();
+        this.looseInfo.classList.add('hidden');
+        document.getElementById("player-level").innerHTML = "0";
+        document.getElementById("player-level").innerHTML = "0";
+        this.run();
     }
 
     run = () => {
         this.gameStatus = true;
         this.nextFigure = this.getNextFigure();
         this.timerId = setInterval(controller.startGame, this.speed);
-    }
-
-    restart = () => {
-        this.initGame();
-        this.run();
+        document.getElementById("start-game").disabled = true;
     }
 
     handlingKeyDownEvents = (e) => {
+        e.preventDefault();
         if(this.gameStatus === false) return;
         let currentFigureCopy = this.currentFigure.copy();
         if(e.key === "ArrowRight" || e.key === "W") {
@@ -72,10 +84,14 @@ class Controller {
             if(this.board.checkCollision(currentFigureCopy)) {
                 this.currentFigure = currentFigureCopy;
             }
+
         }
-        if(e.key === "space" || e.key === "") {
-            console.log("SPACE")
-            // TODO добавить падение фигурки
+        if(e.key === "space" || e.key === " ") {
+            while(this.board.checkCollision(this.currentFigure)) {
+                this.currentFigure.move();
+            }
+            this.currentFigure.position.y = this.currentFigure.position.y - 1;
+            this.reachedBottom();
         }
 
     }
@@ -89,7 +105,27 @@ class Controller {
         }
         //TODO fix random
         let currentType = this.figureTypeKeys.splice(Math.random() * this.figureTypeKeys.length-1, 1)[0];
-        return new Figure(currentType, FigureType[currentType].blocks, 0, 0, DirConstants.DOWN);
+        return new Figure(currentType, FigureType[currentType].blocks, 3, 0, DirConstants.DOWN);
+    }
+
+    reachedBottom = () => {
+        this.flag = 0;
+        this.board.addFigureToBoard(this.currentFigure);
+        let rowNumber = this.board.checkFilledRow();
+        let newPoints = 0;
+        Object.keys(ScoreConstants).forEach((key) => {
+            if(key === rowNumber.toString()) {
+                newPoints = ScoreConstants[key];
+            }
+        })
+        this.score = this.score + newPoints;
+        Object.keys(LevelConstants).forEach((level) => {
+            if(LevelConstants[level] <= this.score && this.score !== 0) {
+                this.level = level;
+                document.getElementById("player-level").innerHTML = this.level;
+                this.speed = this.speed - 100;
+            }
+        })
     }
 
     startGame = () => {
@@ -107,6 +143,8 @@ class Controller {
                 this.gameStatus = false;
                 console.log("GAME OVER");
                 storeUpdatedScore(this.score);
+                this.looseInfo.classList.remove('hidden');
+                this.sounds.playgameOver();
                 return;
             }
         }
@@ -118,29 +156,13 @@ class Controller {
         if(this.board.checkCollision(currentFigureCopy)) {
             this.currentFigure.move();
         } else {
-            this.flag = 0;
-            this.board.addFigureToBoard(this.currentFigure);
-            let rowNumber = this.board.checkFilledRow();
-            let newPoints = 0;
-            Object.keys(ScoreConstants).forEach((key) => {
-                if(key === rowNumber.toString()) {
-                    newPoints = ScoreConstants[key];
-                }
-            })
-            this.score = this.score + newPoints;
-            Object.keys(LevelConstants).forEach((level) => {
-                if(LevelConstants[level] <= this.score) {
-                    this.level = level;
-                    document.getElementById("player-level").innerHTML = this.level;
-                    this.speed = this.speed - 100;
-                }
-            })
+           this.reachedBottom();
         }
     }
 
 }
 
-let controller = new Controller();
+let controller = new GameController();
 document.addEventListener('keydown', function(event){
     controller.handlingKeyDownEvents(event);
 });

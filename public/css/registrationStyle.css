@@ -10,13 +10,15 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #8b74cc;
+    flex-direction: column;
+    background: #3A4452;
 }
+
 .wrapper{
     width: 380px;
     padding: 40px 30px 50px 30px;
-    background: #ffffff;
-    border-radius: 5px;
+    background: #9d9b8b;
+    border-radius: 1px;
     text-align: center;
     box-shadow: 10px 10px 15px rgba(0,0,0,0.1);
 }
@@ -57,22 +59,21 @@ form input{
     padding: 0 45px;
     font-size: 18px;
     background: none;
-    caret-color: #5372F0;
-    border-radius: 5px;
+    caret-color: #bfbfbf;
     border: 1px solid #bfbfbf;
-    border-bottom-width: 2px;
+    border-width: 0 0 2px 0;
     transition: all 0.2s ease;
 }
 form .field input:focus,
 form .field.valid input{
-    border-color: #5372F0;
+    border-color: #bfbfbf;
 }
 form .field.shake input,
 form .field.error input{
-    border-color: #dc3545;
+    border-color: #8d2931;
 }
 form .field .error-txt{
-    color: #dc3545;
+    color: #8d2931;
     text-align: left;
     margin-top: 5px;
 }
@@ -86,15 +87,20 @@ form .field.error .error{
 form button[type="submit"]{
     height: 50px;
     width: 100%;
-    color: #ffffff;
     padding: 0;
     border: none;
-    background: #d297d2;
     cursor: pointer;
+    border-radius: 5px;
     border-bottom: 2px solid rgba(0,0,0,0.1);
     transition: all 0.3s ease;
+
+    font-weight: 600;
+    font-size: 1.5em;
+    background-color: #3f3931;
+    color: #c5bdb0;
 }
 form button[type="submit"]:hover{
-    background: #9574be;
+    background-color: #936f4a;
+    color: #31383f;
 }
 

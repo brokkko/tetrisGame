@@ -14,8 +14,6 @@ function getUser() {
     let usersList = JSON.parse(localStorage.getItem("tetris.scores")) || [];
     if(!(usersList instanceof Array))
         usersList = [usersList];
-    console.log("in get")
-    console.log(usersList)
     return usersList;
 }
 
@@ -27,7 +25,9 @@ function storeUpdatedScore(updatedScore) {
 
     for(let i=0; i<usersList.length; i++) {
         if(usersList[i].name === currentUser) {
-            usersList[i].score = updatedScore;
+            if(usersList[i].score < updatedScore){
+                usersList[i].score = updatedScore;
+            }
             break;
         }
     }

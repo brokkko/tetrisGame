@@ -1,7 +1,7 @@
-import {BoardConstants, NextBoardConstants} from "../Constants.js";
-import {FigureType} from "./FigureType.js";
+import {BoardConstants, NextBoardConstants} from "../constants/Constants.js";
+import {FigureType} from "../constants/FigureType.js";
 
-export default class BoardRendering {
+export default class Board {
     constructor(boardCanvasElement, nextCanvasElement) {
         this.boardCtx = boardCanvasElement.getContext("2d");
         this.nextBoardCtx = nextCanvasElement.getContext("2d");
@@ -22,7 +22,7 @@ export default class BoardRendering {
                 this.boardCtx.strokeRect(j, i, BoardConstants.BLOCK_SIZE, BoardConstants.BLOCK_SIZE);
             }
         }
-        BoardRendering.#renderingFigures(this.boardCtx, this.board,
+        Board.#renderingFigures(this.boardCtx, this.board,
             BoardConstants.HEIGHT, BoardConstants.WIDTH, BoardConstants.BLOCK_SIZE);
 
         this.nextBoardCtx.canvas.width = NextBoardConstants.WIDTH * NextBoardConstants.BLOCK_SIZE;
@@ -33,7 +33,7 @@ export default class BoardRendering {
                 this.nextBoardCtx.strokeRect(j, i, NextBoardConstants.BLOCK_SIZE, NextBoardConstants.BLOCK_SIZE);
             }
         }
-        BoardRendering.#renderingFigures(this.nextBoardCtx, this.nextBoard,
+        Board.#renderingFigures(this.nextBoardCtx, this.nextBoard,
             NextBoardConstants.HEIGHT, NextBoardConstants.WIDTH, NextBoardConstants.BLOCK_SIZE);
 
     }
@@ -41,6 +41,8 @@ export default class BoardRendering {
     static #renderingFigures(ctx, boardArray, height, width, blockSize) {
         for (let row = 0; row < height; row++) {
             for (let col = 0; col < width; col++) {
+                ctx.fillStyle = BoardConstants.BLOCK_COLOR;
+                ctx.fillRect(col * blockSize + 5/2, row * blockSize + 5/2, blockSize - 5, blockSize - 5);
                 if (boardArray[row][col] !== "") {
                     ctx.fillStyle = boardArray[row][col];
                     ctx.fillRect(col * blockSize + 5/2, row * blockSize + 5/2, blockSize - 5, blockSize - 5);
@@ -109,7 +111,9 @@ export default class BoardRendering {
 
     addNewNextFigure(figure) {
         this.nextBoard = this.#getEmptyBoard(NextBoardConstants.HEIGHT, NextBoardConstants.WIDTH);
-        this.addFigureToBoard(figure, this.nextBoard);
+        let figureCopy = figure.copy();
+        figureCopy.position.x = figureCopy.position.x - 3;
+        this.addFigureToBoard(figureCopy, this.nextBoard);
     }
 
     clearAll() {

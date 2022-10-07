@@ -6,25 +6,33 @@
     <link rel="stylesheet" href="./public/css/registrationStyle.css">
 </head>
 <body>
-    <script src="./public/js/Storage.js"></script>
+    <script src="public/js/services/StorageService.js"></script>
+
+    <div class="settings">
+        <button id="rules"></button>
+    </div>
 
     <div class="wrapper">
-        <header>Who are you??</header>
-        <form action="./public/html/main.html" method="GET">
+        <header>Как Вас зовут?</header>
+        <form action="public/html/game.html" method="GET">
             <div class="field username">
                 <div class="input-area">
                     <input type="text" name="username" placeholder="Your name">
-                    <script>
-                        document.getElementsByName('username')[0].placeholder = getLastUser();
-                    </script>
                 </div>
                 <div class="error error-txt" id="error"></div>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" onclick="playClick()" onsubmit="playClick()">Войти</button>
         </form>
     </div>
+    <script>
+        function playClick() {
+            let click = new Audio("./public/assets/sounds/click2.wav");
+            click.play();
+        }
+        document.getElementsByName('username')[0].placeholder = getLastUser();
+    </script>
 
-    <script src="./public/js/loginFormValidation.js"></script>
+    <script src="public/js/services/LoginFormValidation.js"></script>
 
 </body>
 </html>

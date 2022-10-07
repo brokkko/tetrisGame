@@ -1,4 +1,4 @@
-import {DirConstants} from "../Constants.js";
+import {DirConstants} from "../constants/Constants.js";
 
 export default class Figure {
     constructor(type, matrix, positionX, positionY, rotationDir) {

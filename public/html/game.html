@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="../css/gamePageStyle.css">
+    <title>Tetris</title>
+    <link rel="stylesheet" href="../css/gameStyle.css">
 </head>
 <body>
-    <script src="../js/Storage.js"></script>
-    <script type="module" src="../js/controller.js" defer></script>
+    <script src="../js/services/StorageService.js"></script>
+    <script type="module" src="../js/services/SoundsService.js" defer></script>
+    <script type="module" src="../js/GameController.js" defer></script>
     <div class="wrapper-control">
         <div class="game-info">
             <div id="game-info-player">
@@ -24,10 +25,9 @@
             </div>
         </div>
         <button class="control-button" id="start-game">Начать игру</button>
-        <button class="control-button" id="restart-game">Пробовать снова</button>
         <button class="control-button" id="show-score-table">Таблица рекордов</button>
         <form action="../../index.html" method="GET">
-            <button class="control-button">Вернуться в меню</button>
+            <button class="control-button" onclick="playClick()">Вернуться в меню</button>
         </form>
     </div>
 
@@ -44,18 +44,31 @@
         </div>
     </div>
 
+    <div class="loose-wrapper hidden" >
+        <img src="../assets/images/game-over.png">
+        <button class="control-button" id="restart-game">Пробовать снова</button>
+        <button class="control-button" id="score-table">Таблица рекордов</button>
+        <form action="../../index.html" method="GET">
+            <button class="control-button" id="back-to-menu" onclick="playClick()">Вернуться в меню</button>
+        </form>
+    </div>
+
     <div class="wrapper-score-table">
+        <button id="close">✕</button>
+        <p id="table-title">Рейтинг ТОП-5</p>
         <div id="table"></div>
-        <button id="close">Закрыть</button>
     </div>
 
     <script>
         document.getElementById("player-name").innerHTML = getLastUser();
         document.getElementById("player-level").innerHTML = "0";
-        document.getElementById("player-score").innerHTML = getCurrentUserScore(); //TODO here should be 0
-        console.log(getUser());
+        document.getElementById("player-score").innerHTML = "0";
+        function playClick() {
+            let click = new Audio("../assets/sounds/click2.wav");
+            click.play();
+        }
     </script>
-    <script src="../js/ScoreTable.js"></script>
+    <script src="../js/components/ScoreTable.js"></script>
 
 </body>
 </html>
